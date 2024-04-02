@@ -1,5 +1,7 @@
-# ignore all files
-*
-# except mat_116.tex and .gitignore
+# ignore all files in root directory but not sub directories
+/*
+!*/
+# except mat_116.tex, .gitignore, and readme.md
 !mat_116.tex
 !.gitignore
+!readme.md
