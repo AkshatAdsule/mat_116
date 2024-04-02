@@ -1,0 +1,5 @@
+# ignore all files
+*
+# except mat_116.tex and .gitignore
+!mat_116.tex
+!.gitignore

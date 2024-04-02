@@ -1,0 +1,229 @@
+\documentclass{article}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+\colorlet{LightGray}{White!90!Periwinkle}
+\colorlet{LightOrange}{Orange!15}
+\colorlet{LightGreen}{Green!15}
+\colorlet{LightBlue}{Blue!15}
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+\declaretheoremstyle[name=Theorem,]{thmsty}
+\declaretheorem[style=thmsty,numberwithin=section]{theorem}
+\tcolorboxenvironment{theorem}{colback=LightGray}
+
+\declaretheoremstyle[name=Proposition,]{prosty}
+\declaretheorem[style=prosty,numberlike=theorem]{proposition}
+\tcolorboxenvironment{proposition}{colback=LightOrange}
+
+\declaretheoremstyle[name=Principle,]{prcpsty}
+\declaretheorem[style=prcpsty,numberlike=theorem]{principle}
+\tcolorboxenvironment{principle}{colback=LightGreen}
+
+\declaretheoremstyle[name=Definition,]{defsty}
+\declaretheorem[style=defsty,numberlike=theorem]{definition}
+\tcolorboxenvironment{definition}{colback=LightBlue}
+
+\declaretheoremstyle[name=Lemma,]{lemsty}
+\declaretheorem[style=lemsty,numberlike=theorem]{lemma}
+\tcolorboxenvironment{lemma}{colback=LightGray}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+\setlength{\parindent}{0pt}
+
+% ------------------------------------------------------------------------------
+% Helper commands
+% ------------------------------------------------------------------------------
+
+\newcommand{\SecHead}[1]{\large \textbf{#1} \\}
+\newcommand{\bb}[1]{\mathbb{#1}}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% Cover Page and ToC
+% ------------------------------------------------------------------------------
+
+\title{ \normalsize \textsc{}
+\\ [2.0cm]
+\HRule{1.5pt} \\
+\LARGE \textbf{\uppercase{Differential Geometry}
+\HRule{2.0pt} \\ [0.6cm] \LARGE{Spring 2024} \vspace*{10\baselineskip}}
+}
+\date{}
+\author{\textbf{Akshat Adsule}}
+
+\maketitle
+\newpage
+
+\hypersetup{hidelinks}
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\section{Review of Vector Analysis \& Linear Algebra}
+\SecHead{Vector Spaces}
+A vector space is a set $V$ whose elements are vectors for which
+the two binary operations $+ : V \times V \rightarrow V$ and $\cdot : R \times V \rightarrow V$ are define as so.
+Vector spaces must also satisfy the following axioms for all $u, v, w \in V$ and $r, s \in R$.
+\begin{itemize}
+  \item $u + v = v + u$
+  \item $u + (v + w) = (u + v) + w$
+  \item $\exists \ 0 \in V $ s.t. $ 0 + u = u$
+  \item $(rs) \cdot u = r\cdot(s \cdot u)$
+  \item $(r + s) \cdot u = r\cdot u + s \cdot u$
+  \item $r \cdot (u + v) = r\cdot u + r \cdot v$
+  \item $0 \cdot u = 0$
+  \item $1 \cdot u = u$
+\end{itemize}
+We also define some properties of vector spaces:
+
+\begin{definition} [Linearly Independence] \ \\
+  A set $\{v_i | i \in I\}$ is \textbf{linearly independent} if whether
+  a finite linear combination $\sum a^i v_i = 0$, then each $a^i = 0$.
+  If it is possible to find a finite linear combination that is not zero,
+  then the set is \textbf{linearly dependent}.
+\end{definition}
+
+\begin{definition} [Span] \ \\
+  A subset $S \subset V$ \textbf{spans} $V$ if for each vector $v \in V$
+  there are vectors $v_1, v_2, \dots, v_n \in S$ and real numbers $a^1, a^2, \dots, a^n$
+  such that $v = \sum a^i v_i$.
+\end{definition}
+
+\begin{definition} [Basis] \ \\
+  A \textbf{basis} for a vector space $V$ is a linearly independent set
+  of vectors that spans $V$.
+\end{definition}
+
+\begin{definition} [Dimension] \ \\
+  The \textbf{dimension} of a vector space $V$ is the number of vectors in a basis for $V$.
+\end{definition}
+
+With this, we can introduce the following theorem:
+
+\begin{theorem} \ \\
+  If $V$ is a vector space, then $V$ has a basis.
+  Any two bases for $V$ have the same number of vectors or all have infinite vectors.
+\end{theorem}
+
+\begin{definition} [Inner Product] \ \\
+  An \textbf{inner product} on a vector space $V$ is a function
+  $\langle \cdot, \cdot \rangle : V \times V \rightarrow \bb{R}$
+  that satisfies the following properties for all $u, v, w \in V$ and $r \in \bb{R}$:
+  \begin{itemize}
+    \item $\langle u, v \rangle = \langle v, u \rangle$
+    \item $\langle u + v, w \rangle = \langle u, w \rangle + \langle v, w \rangle$
+    \item $\langle ru, v \rangle = r \langle u, v \rangle$
+    \item $\langle u, u \rangle \ge 0$ and $\langle u, u \rangle = 0$ iff $u = 0$
+  \end{itemize}
+\end{definition}
+
+For example, in $\bb{R}^n$, the standard inner product is defined as $\langle u, v \rangle = u_1 v_1 + u_2 v_2 + \dots + u_n v_n$.
+In $R[x]$, we can set $\langle f, g \rangle = \int_{a}^{b} f(x)g(x)dx$.
+The inner product allows us to define properties of a vector:
+
+\begin{definition} [Length] \ \\
+  If $V$ is a vector space with an inner product, then the \textbf{length} of a vector $v \in V$
+  is defined as $|v| = \sqrt{\langle v, v \rangle}$.
+\end{definition}
+
+\begin{lemma} [Cauchy-Schwarz Inequality] \ \\
+  If $u, v \in V$, then $|\langle u, v \rangle| \le |u| \cdot |v|$.
+  Furthermore, iff $u$ and $v$ are linearly dependent, then $|\langle u, v \rangle| = |u| \cdot |v|$.
+\end{lemma}
+
+\begin{definition} [Angle Between Vectors] \ \\
+  If $u, v \in V$, then the following holds: $\cos(\theta) = \frac{\langle u, v \rangle}{|u| \cdot |v|}$.
+\end{definition}
+
+\begin{definition} [Orthogonal Vectors] \ \\
+  If $u, v \in V$, then $u$ and $v$ are \textbf{orthogonal} if $\langle u, v \rangle = 0$.
+\end{definition}
+
+\newpage
+
+\section{Local Curve Theory}
+
+\SecHead{Curves in $\bb{R}^3$}
+We can think of curves as either a geometric set of points,
+or as the path traced out by a particle moving in $\mathbb{R}^3$
+as a function of a parameter, $t$.
+The second method offers a means of apply calculus
+to describe the geometric behavior of the curve.
+The same geometric curve could have many parameterizations,
+but the geometric properties do not depend on the parameterization
+
+\SecHead{Basic Definitions}
+We restrict the curves we study to the following constraints:
+\begin{itemize}
+  \item The curve should be described by a differentiable function
+  \item {
+        The derivative of the curve's parameterization
+        shall not be equal to zero on the interval of interest
+        }
+\end{itemize}
+
+Curves that fit these constraints are labeled as 'regular'.
+We can formally define regularity as such:
+
+\begin{definition}[Regular Curve]\ \\
+  A \textbf{regular curve} in $\bb{R}^3$ is a function
+  $\alpha: (a, b) \rightarrow \bb{R}^3$
+  of class $C^k$ for some $k \ge 1$ and for which
+  $\frac{d\alpha}{dt} \ne 0$ for all $t \in (a, b)$
+\end{definition}
+
+With our regular curve, $\alpha$, we can define other vector fields
+around $\alpha$.
+These include the \textbf{velocity}, \textbf{tangent}, and \textbf{binormal} fields.
+Focusing on just the velocity field, we have:
+
+\begin{definition}[Velocity, Velocity Vector Field, \& Speed] \ \\
+  The \textbf{velocity vector} to a regular curve $\alpha(t)$
+  is the derivative $\frac{d\alpha}{dt}$.
+  The \textbf{velocity vector field} is the vector value function $\frac{d\alpha}{dt}.$
+  The \textbf{speed} of $\alpha(t)$ is the length of the velocity vector,
+  $|(\frac{d\alpha}{dt})|$
+\end{definition}
+
+\begin{definition}[Tangent Vector Field] \ \\
+  The \textbf{tangent vector field} to a regular curve $\alpha(t)$
+  is the vector valued function $T(t) = \frac{d\alpha/dt}{|d\alpha/dt|}$
+\end{definition}
+
+% ------------------------------------------------------------------------------
+% Reference and Cited Works
+% ------------------------------------------------------------------------------
+
+\bibliographystyle{IEEEtran}
+\bibliography{References.bib}
+
+% ------------------------------------------------------------------------------
+
+\end{document}
+
